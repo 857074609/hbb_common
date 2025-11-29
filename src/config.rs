@@ -126,7 +126,7 @@ lazy_static::lazy_static! {
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = {
         let mut map = HashMap::new();
         //主题色，dark：深色，light：浅色，system：跟随系统
-        map.insert("theme".to_string(), "dark".to_string());
+        map.insert("theme".to_string(), "light".to_string());
         //使用D3D渲染
         map.insert("allow-d3d-render".to_string(), "Y".to_string());
         //启动时检查软件更新
@@ -160,6 +160,12 @@ lazy_static::lazy_static! {
             "default-connect-password".to_string(), 
             option_env!("DEFAULT_PASSWORD").unwrap_or("").into()
         );
+        //禁用剪贴板
+        map.insert("disable-clipboard".to_string(), "N".to_string());
+        //启用传入连接的复制和粘贴
+        map.insert("enable-clipboard-settings".to_string(), "Y".to_string());
+        //启用拷贝文件
+        map.insert("enable-file-copy-paste-settings".to_string(), "Y".to_string());
         //隐藏远程打印设置选项
         map.insert("hide-remote-printer-settings".to_string(), "Y".to_string());
         //隐藏代理设置选项
