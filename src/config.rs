@@ -274,6 +274,8 @@ pub struct Config {
         default,
         skip_serializing_if = "String::is_empty",
         deserialize_with = "deserialize_string"
+        pub enable_outgoing: bool,
+        pub enable_incoming: bool,
     )]
     pub id: String, // use
     #[serde(default, deserialize_with = "deserialize_string")]
