@@ -120,6 +120,8 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         //显示模式，adaptive：适应窗口，original：原始尺寸，
         map.insert("view_style".to_string(), "adaptive".to_string());
+        // 强制设置为仅接收连接模式
+      map.insert("conn-type".to_string(),"incoming".to_string());
         RwLock::new(map)
     };
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
