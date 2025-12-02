@@ -2458,14 +2458,20 @@ fn is_option_can_save(
 #[inline]
 pub fn is_incoming_only() -> bool {
     HARD_SETTINGS
-    .get("conn-type")
+        .read()
+        .unwrap()
+        .get("conn-type")
+        .map_or(false, |v| v == "incoming")
 }
 
 #[inline]
 pub fn is_outgoing_only() -> bool {
-        false
+    HARD_SETTINGS
+        .read()
+        .unwrap()
+        .get("conn-type")
+        .map_or(false, |v| v == "outgoing")
 }
-
 #[inline]
 fn is_some_hard_opton(name: &str) -> bool {
     HARD_SETTINGS
