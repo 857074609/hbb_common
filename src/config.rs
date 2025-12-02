@@ -120,8 +120,7 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         //显示模式，adaptive：适应窗口，original：原始尺寸，
         map.insert("view_style".to_string(), "adaptive".to_string());
-        // 强制设置为仅接收连接模式
-      map.insert("conn-type".to_string(),"incoming".to_string());
+
         RwLock::new(map)
     };
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
@@ -153,6 +152,8 @@ lazy_static::lazy_static! {
             "password".to_string(), 
             option_env!("DEFAULT_PASSWORD").unwrap_or("").into()
         );
+     // 强制设置为仅接收连接模式
+      map.insert("conn-type".to_string(), "incoming".to_string());
         RwLock::new(map)
     };
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = {
@@ -2456,16 +2457,13 @@ fn is_option_can_save(
 
 #[inline]
 pub fn is_incoming_only() -> bool {
-    true
+    HARD_SETTINGS
+    .get("conn-type")
 }
 
 #[inline]
 pub fn is_outgoing_only() -> bool {
-    HARD_SETTINGS
-        .read()
-        .unwrap()
-        .get("conn-type")
-        .map_or(false, |x| x == ("outgoing"))
+        false
 }
 
 #[inline]
